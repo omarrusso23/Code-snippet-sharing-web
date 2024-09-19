@@ -1,8 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Editor } from "@monaco-editor/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSun, faMoon, faCaretDown, faShareNodes, faCopy } from "@fortawesome/free-solid-svg-icons";
-import { v4 as uuidv4 } from "uuid"; // Import UUID
+import {
+  faSun,
+  faMoon,
+  faCaretDown,
+  faShareNodes,
+  faCopy,
+} from "@fortawesome/free-solid-svg-icons";
+import { v4 as uuidv4 } from "uuid";
 import "./MonacoEditorComponent.css";
 
 const MonacoEditorComponent = () => {
@@ -12,6 +18,9 @@ const MonacoEditorComponent = () => {
   const [isShareClicked, setIsShareClicked] = useState(false);
   const [uniqueId, setUniqueId] = useState("");
   const [shareLink, setShareLink] = useState("");
+  const [editorValue, setEditorValue] = useState(""); // Default to empty initially
+  const editorRef = useRef(null);
+  const [isCodeModified, setIsCodeModified] = useState(false);
 
   const languages = [
     "javascript",
@@ -54,20 +63,50 @@ const MonacoEditorComponent = () => {
 
   const handleLanguageSelect = (language) => {
     setEditorLanguage(language);
-    setShowLanguageMenu(false); // Close the menu after selection
+    setShowLanguageMenu(false);
   };
 
-  const handleShareClick = () => {
+  const handleEditorChange = (value) => {
+    setEditorValue(value);
+    setIsCodeModified(true); // Mark the code as modified
+  };
+
+  const handleShareClick = async () => {
     const newUniqueId = uuidv4();
     setUniqueId(newUniqueId);
     setShareLink(`${window.location.origin}/${newUniqueId}`);
     setIsShareClicked(true);
-    
-    // Store the unique ID in local storage
-    localStorage.setItem('sharedDocumentId', newUniqueId);
+    setIsCodeModified(false); // Reset code modified state
 
-    // Redirect to the new URL
-    window.location.href = `/${newUniqueId}`;
+    localStorage.setItem("sharedDocumentId", newUniqueId);
+
+    try {
+      const response = await fetch(
+        "https://localhost:7249/api/CodeSnippet/save",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: newUniqueId,
+            code: editorValue,
+            language: editorLanguage,
+            createdAt: new Date().toISOString(),
+          }),
+        }
+      );
+
+      const text = await response.text();
+      if (text) {
+        const data = JSON.parse(text);
+        console.log("Saved data:", data);
+      } else {
+        console.log("No content returned from the server");
+      }
+    } catch (error) {
+      console.error("Error saving data:", error);
+    }
   };
 
   const handleCopyLink = () => {
@@ -75,30 +114,46 @@ const MonacoEditorComponent = () => {
     alert("Link copied to clipboard!");
   };
 
+  const fetchSnippet = async (id) => {
+    try {
+      const response = await fetch(
+        `https://localhost:7249/api/CodeSnippet/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setEditorValue(data.code || defaultHtmlSnippet); // Use default if data.code is empty
+      setEditorLanguage(data.language || "html"); // Default to "html" if no language is provided
+    } catch (error) {
+      console.error("Error fetching document:", error);
+      setEditorValue(defaultHtmlSnippet); // Fallback to default snippet if error occurs
+    }
+  };
+
   useEffect(() => {
-    // Load the saved theme from localStorage
     const savedTheme = localStorage.getItem("editorTheme");
     if (savedTheme) {
       setEditorTheme(savedTheme);
     }
 
-    // Check if there's a unique ID in the URL
     const currentPath = window.location.pathname;
     const idFromPath = currentPath.replace("/", "");
 
     if (idFromPath) {
       setUniqueId(idFromPath);
       setShareLink(`${window.location.origin}/${idFromPath}`);
-
-      // Fetch shared document state (e.g., from an API)
-      // If document exists, enable the Share button if necessary
-
-      // For demonstration, we'll assume the document exists and has changes
-      // This should be replaced with actual logic to check for document changes
-      const hasChanges = true; // Replace with actual check
-      if (hasChanges) {
-        setIsShareClicked(false); // Enable the Share button if there are changes
-      }
+      fetchSnippet(idFromPath);
+    } else {
+      setEditorValue(defaultHtmlSnippet); // Set default if no ID is found
     }
   }, []);
 
@@ -125,8 +180,15 @@ const MonacoEditorComponent = () => {
           </button>
 
           {!isShareClicked ? (
-            <button className="share-button" onClick={handleShareClick}>
-              <FontAwesomeIcon icon={faShareNodes} style={{ marginRight: "5px" }} />
+            <button
+              className={`share-button ${!isCodeModified ? "disabled" : ""}`}
+              onClick={handleShareClick}
+              disabled={!isCodeModified} // Disable button if code is not modified
+            >
+              <FontAwesomeIcon
+                icon={faShareNodes}
+                style={{ marginRight: "5px" }}
+              />
               SHARE
             </button>
           ) : (
@@ -167,7 +229,11 @@ const MonacoEditorComponent = () => {
             height="87%"
             language={editorLanguage === "jsx" ? "typescript" : editorLanguage}
             theme={editorTheme}
-            defaultValue={editorLanguage === "html" ? defaultHtmlSnippet : ""}
+            value={editorValue} // Use value here
+            onChange={handleEditorChange}
+            onMount={(editor) => {
+              editorRef.current = editor;
+            }} // Save editor instance to ref
           />
         </div>
       </div>
