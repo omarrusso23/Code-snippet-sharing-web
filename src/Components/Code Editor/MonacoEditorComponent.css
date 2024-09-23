@@ -234,6 +234,10 @@ li:hover {
   opacity: 0.7; /* Slightly transparent to indicate it's disabled */
 }
 
+.share-confirmation span{
+  color: white;
+}
+
 /* Responsive Styles */
 
 @media (max-width: 1540px) {

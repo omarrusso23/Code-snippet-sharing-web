@@ -15,7 +15,7 @@ const LandingPage = ({ onLoadComplete }) => {
       <div className="loading-bar">
         <div className="bar"></div>
       </div>
-      <h1>Welcome to My Landing Page</h1>
+      <h1>STILL IN DEVELOPMENT</h1>
       <div className="custom-shape-divider-bottom-1726491737">
         <svg
           data-name="Layer 1"
