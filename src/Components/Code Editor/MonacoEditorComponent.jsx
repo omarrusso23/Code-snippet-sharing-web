@@ -82,7 +82,7 @@ const MonacoEditorComponent = () => {
 
     try {
       const response = await fetch(
-        "https://localhost:7249/api/CodeSnippet/save",
+        "https://code-snippet-backend-api-eqggeff9h5hgdfhq.spaincentral-01.azurewebsites.net/api/codesnippet/save",
         {
           method: "POST",
           headers: {
