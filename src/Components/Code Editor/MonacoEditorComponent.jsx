@@ -117,7 +117,7 @@ const MonacoEditorComponent = () => {
   const fetchSnippet = async (id) => {
     try {
       const response = await fetch(
-        `https://localhost:7249/api/CodeSnippet/${id}`,
+        `https://code-snippet-backend-api-eqggeff9h5hgdfhq.spaincentral-01.azurewebsites.net/api/codesnippet/${id}`,
         {
           method: "GET",
           headers: {
