@@ -1,0 +1,23 @@
+.compiler{
+    height: 100%;
+    width: 100%;
+    border: 1px solid black;
+}
+
+.iframe-compiler{
+    width: 100%;
+    border: 1px solid rebeccapurple;
+    height: 90%;
+}
+
+.compile-button {
+    padding: 20px 40px;
+    font-size: 18px;
+    cursor: pointer;
+
+}
+
+.compile-button:disabled {
+    cursor: not-allowed;
+
+}

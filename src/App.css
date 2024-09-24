@@ -2,6 +2,11 @@ body{
     background: #181818 ;
 }
 
+.App{
+    height: 100vh;
+}
+
+
 .custom-shape-divider-bottom-1726491737 {
     position: absolute;
     bottom: 0;
@@ -23,3 +28,39 @@ body{
 .custom-shape-divider-bottom-1726491737 .shape-fill {
     fill: #B61D1D;
 }
+
+.resizable-container {
+    display: flex;
+    height: 100%;
+  }
+  
+  .editor-resizable {
+    border-right: 2px solid #ccc;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .editor-container {
+    height: 100%;
+  }
+  
+  .other-content {
+    flex-grow: 1;
+    background-color: #eaeaea;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Custom handle for resizing */
+  .custom-handle-right {
+    width: 10px;
+    background-color: #ccc;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    cursor: ew-resize;
+  }
+  

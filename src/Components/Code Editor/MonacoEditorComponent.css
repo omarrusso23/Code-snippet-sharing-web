@@ -3,66 +3,33 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  height: 100%;
   z-index: 100;
+  width: 99%;
 }
 
+
 .editor-container {
-  position: relative;
-  width: 50%;
-  max-width: 1200px;
-  border-radius: 15px;
   overflow: hidden;
   height: 95vh;
-  z-index: 100;
+  width: 100%;
+  border: 1px solid black;
 }
 
 
 .editor-button-container {
   position: absolute;
-  bottom: 10px; 
+  bottom: 0px; 
   left: 10px;
   right: 10px;
   display: flex;
   justify-content: start;
   z-index: 1;
-  padding: 10px;
+  padding-bottom: 10px;
 }
 
 .share-button {
   background-color: #B61D1D;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  color: #e0e0e0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-transform: uppercase;
-  width: 130px;
-  margin-left: 68%;
-  padding: 10px;
-  border-radius: 5px;
-  transition: background-color 0.3s;
-}
-
-.share-button:hover {
-  background-color: #8d1616;
-}
-
-.share-button .fa-share {
-  margin-right: 3px; /* Ensures the icon is on the left and text is to the right */
-}
-
-.share-confirmation {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 10px;
-}
-
-.copy-link-button {
-  background-color: #303030;
   border: none;
   font-size: 16px;
   cursor: pointer;
@@ -76,14 +43,22 @@
   padding: 10px;
   border-radius: 5px;
   transition: background-color 0.3s;
+  height: 50px;
 }
 
-.copy-link-button:hover {
-  background-color: #444;
+.share-button:hover {
+  background-color: #8d1616;
 }
 
-.copy-link-button .fa-copy {
-  margin-right: 5px; /* Ensures the icon is on the left and text is to the right */
+.share-button .fa-share {
+  margin-right: 3px;
+}
+
+.share-confirmation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
 }
 
 .monaco-editor-container{
@@ -91,22 +66,17 @@
   padding-top: 10px;
 }
 
-.language-toggle-button {
-  background-color: #303030;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-  color: #e0e0e0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* Space between text and icon */
-  text-transform: uppercase;
-  width: 130px;
-  margin-right: 10px;
+.editor-button-container{
+  background: rgb(0,0,0);
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.13) 66%, rgba(101,15,24,0) 84%);
+  padding-top: 30px;
+}
+
+.compile-button{
   padding: 10px;
+  width: 130px;
+  margin-left: 10px;
   border-radius: 5px;
-  transition: background-color 0.3s; /* Smooth transition for background color */
-  height: 50px;
 }
 
 .language-toggle-button {
@@ -117,7 +87,26 @@
   color: #e0e0e0;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Space between text and icon */
+  justify-content: space-between;
+  text-transform: uppercase;
+  width: 130px;
+  margin-right: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  height: 50px;
+}
+
+
+.language-toggle-button {
+  background-color: #303030;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   text-transform: uppercase;
   width: 130px;
   margin-right: 10px;
@@ -134,11 +123,11 @@
   margin: 0;
   position: absolute;
   bottom: 60px;
-  left: 20px;
+  left: 10px;
   background-color: #333;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  width: 130px;
+  width: 124px;
   z-index: 10;
   text-transform: uppercase;
 }
@@ -164,6 +153,7 @@ li:hover {
   color: white;
 }
 
+
 .theme-toggle-button {
   background-color: transparent;
   border: none;
@@ -179,7 +169,7 @@ li:hover {
   transform: rotate(360deg);
 }
 
-/* Light mode button */
+
 .light-mode-btn {
   background-color: #f0f0f0;
   color: #303030;
@@ -188,7 +178,7 @@ li:hover {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Dark mode button */
+
 .dark-mode-btn {
   background-color: #303030;
   color: #e0e0e0;
@@ -198,7 +188,6 @@ li:hover {
 }
 
 
-/* Light mode for dropdown */
 .light-mode-dropdown {
   background-color: #f0f0f0;
   color: #303030;
@@ -207,7 +196,7 @@ li:hover {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Dark mode for dropdown */
+
 .dark-mode-dropdown {
   background-color: #303030;
   color: #e0e0e0;
@@ -221,32 +210,24 @@ li:hover {
   background-color: #FFFFFE;
 }
 
-/* Dark mode for dropdown */
+
 .dark-mode-editor {
   background-color: #1E1E1E;
 }
 
 .share-button.disabled {
-  background-color: #ccc; /* Gray background for disabled state */
-  color: #666; /* Gray text for disabled state */
-  cursor: not-allowed; /* Cursor style for disabled state */
-  border: 1px solid #aaa; /* Border color for disabled state */
-  opacity: 0.7; /* Slightly transparent to indicate it's disabled */
+  background-color: #ccc; 
+  color: #666;
+  cursor: not-allowed;
+  border: 1px solid #aaa; 
+  opacity: 0.7;
 }
 
-/* Responsive Styles */
 
-@media (max-width: 1540px) {
-  body{
-    overflow: hidden;
-  }
-  .editor-container {
-    width: 60%;
-    height: 90vh;
-    bottom: 5%;
-  }
-}
 
+
+
+/**
 @media (max-width: 1200px) {
     body{
     overflow: hidden;
@@ -287,7 +268,7 @@ li:hover {
   }
 
   .monaco-editor-container {
-    height: calc(100vh - 80px); /* Adjust height for smaller screens */
+    height: calc(100vh - 80px); 
   }
 }
 
@@ -308,12 +289,13 @@ li:hover {
   .language-toggle-button {
     font-size: 12px;
     padding: 4px 8px;
-    width: 100%; /* Make buttons full width on very small screens */
-    margin: 5px 0; /* Adjust margin for better spacing */
+    width: 100%;
+    margin: 5px 0; 
   }
 
   .language-dropdown {
-    width: 100%; /* Make dropdown full width on very small screens */
+    width: 100%;
     left: 0;
   }
 }
+  **/
