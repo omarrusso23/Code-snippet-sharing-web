@@ -106,8 +106,6 @@
   transition: background-color 0.2s;;
 }
 
-/*Tooltip*/
-
 .tooltip {
   position: absolute;
   margin-left: 50px; 
