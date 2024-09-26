@@ -36,7 +36,8 @@
   flex-direction: column;
   list-style-type: none;
   padding: 0px;
-  width: 100%;
+  width: 80%;
+  height: fit-content;
 }
 
 .language-icon{
