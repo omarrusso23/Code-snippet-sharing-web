@@ -72,7 +72,6 @@
 .button-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
 }
 
 .theme-toggle-button {
