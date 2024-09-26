@@ -68,7 +68,7 @@ const CodeCompilerComponent = ({ editorValue, editorLanguage }) => {
       setIframeSrcDoc(doc);
     } else {
       dispatch(
-        compileBackendCode({ code: editorValue, languages: editorLanguage })
+        compileBackendCode({ code: editorValue, language: editorLanguage })
       );
     }
   };
@@ -84,7 +84,7 @@ const CodeCompilerComponent = ({ editorValue, editorLanguage }) => {
           <title>Compiled Output</title>
         </head>
         <body>
-          ${compileResult}
+          <pre>${compileResult}</pre> <!-- Display the result -->
         </body>
         </html>
       `;
@@ -99,16 +99,11 @@ const CodeCompilerComponent = ({ editorValue, editorLanguage }) => {
   }, []);
 
   return (
-    <div className="compiler" style={{ textAlign: "center" }}>
+    <div className="compiler">
       {loading && <p>Compiling...</p>}
-      {error && <p style={{ color: "red" }}>Error: {error}</p>}
-      {!["javascript", "html", "css"].includes(editorLanguage) &&
-        !loading &&
-        !error && (
-          <p style={{ color: "orange" }}>
-            Unsupported language. Please use JavaScript, HTML or BOTH
-          </p>
-        )}
+      {error && !compileResult && (
+        <p style={{ color: "red" }}>Error: {error}</p>
+      )}
       {iframeSrcDoc && (
         <iframe
           srcDoc={iframeSrcDoc}
@@ -120,9 +115,9 @@ const CodeCompilerComponent = ({ editorValue, editorLanguage }) => {
       <button
         onClick={handleCompileClick}
         disabled={loading}
-        className="compile-button"
+        className={`compile-button ${iframeSrcDoc ? "iframe-active" : ""}`}
       >
-        Compile
+        COMPILE
       </button>
     </div>
   );

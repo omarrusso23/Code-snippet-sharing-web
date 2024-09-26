@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 export const compileBackendCode = createAsyncThunk(
   'compiler/compileBackendCode',
   async ({ code, language }) => {
-    const response = await fetch('/api/compile', {
+    const response = await fetch('https://code-snippet-backend-api-eqggeff9h5hgdfhq.spaincentral-01.azurewebsites.net/api/JDoodle/compile', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -14,7 +14,7 @@ export const compileBackendCode = createAsyncThunk(
       throw new Error('Failed to compile code');
     }
     const data = await response.json();
-    return data.result;
+    return data.output;
   }
 );
 
