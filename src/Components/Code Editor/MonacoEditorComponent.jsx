@@ -26,7 +26,7 @@ const MonacoEditorComponent = () => {
   const [shareLink, setShareLink] = useState("");
   const editorRef = useRef(null);
   const [isCodeModified, setIsCodeModified] = useState(false);
-  
+
   const [languageTooltip, setLanguageTooltip] = useState("");
   const [showLanguageTooltip, setShowLanguageTooltip] = useState(false);
   const [shareTooltip, setShareTooltip] = useState("");
@@ -57,7 +57,7 @@ const MonacoEditorComponent = () => {
   const toggleSidebar = () => {
     setIsSidebarVisible(!isSidebarVisible);
   };
-  
+
   const defaultHtmlSnippet = `<html>
   <head>
     <title>HTML Sample</title>
@@ -119,7 +119,7 @@ const MonacoEditorComponent = () => {
     }, 2000);
 
     // Reset language tooltip on share click
-    setShowLanguageTooltip(false); 
+    setShowLanguageTooltip(false);
 
     try {
       const response = await fetch(
@@ -210,38 +210,44 @@ const MonacoEditorComponent = () => {
               onClick={() => handleLanguageSelect(lang)}
               onMouseEnter={() => {
                 setLanguageTooltip(languageDisplayNames[lang.name]);
-                setShowLanguageTooltip(true); 
+                setShowLanguageTooltip(true);
               }}
               onMouseLeave={() => setShowLanguageTooltip(false)}
             >
               <img className="language-icon" src={lang.icon} alt={lang.name} />
-              {showLanguageTooltip && languageTooltip === languageDisplayNames[lang.name] && (
-                <div className="tooltip" style={{ left: '40px' }}>
-                  {languageTooltip}
-                </div>
-              )}
+              {showLanguageTooltip &&
+                languageTooltip === languageDisplayNames[lang.name] && (
+                  <div className="tooltip" style={{ left: "40px" }}>
+                    {languageTooltip}
+                  </div>
+                )}
             </li>
           ))}
         </ul>
-        <button className="theme-toggle-button" onClick={handleThemeToggle}>
-          {editorTheme === "vs-light" ? (
-            <FontAwesomeIcon icon={faMoon} />
-          ) : (
-            <FontAwesomeIcon icon={faSun} />
-          )}
-        </button>
+        <div className="button-container">
+          <button className="theme-toggle-button" onClick={handleThemeToggle}>
+            {editorTheme === "vs-light" ? (
+              <FontAwesomeIcon icon={faMoon} />
+            ) : (
+              <FontAwesomeIcon icon={faSun} />
+            )}
+          </button>
 
-        <button
-          className={`share-button ${!isCodeModified ? "disabled" : ""}`}
-          onClick={handleShareClick}
-          disabled={!isCodeModified}
-        >
-          <FontAwesomeIcon icon={faShareNodes} style={{ marginRight: "5px" }} />
-          SHARE
-        </button>
+          <button
+            className={`share-button ${!isCodeModified ? "disabled" : ""}`}
+            onClick={handleShareClick}
+            disabled={!isCodeModified}
+          >
+            <FontAwesomeIcon
+              icon={faShareNodes}
+              style={{ marginRight: "5px" }}
+            />
+            SHARE
+          </button>
+        </div>
 
         {showShareTooltip && (
-          <div className="share-tooltip" style={{ left: '40px' }}>
+          <div className="share-tooltip" style={{ left: "40px" }}>
             {shareTooltip}
           </div>
         )}
