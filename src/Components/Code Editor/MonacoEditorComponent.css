@@ -35,7 +35,7 @@
   padding: 0px;
   width: 100%;
   height:fit-content;
-  margin-top: 10px;
+  margin-top: 0px;
 }
 
 .language-icon{
@@ -50,7 +50,7 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-  margin: 10px 0;
+  margin: 8px 0;
 }
 
 .language-list li:hover {
@@ -75,7 +75,6 @@
 
 .theme-toggle-button {
   background-color: transparent;
-  margin-top: 35%;
   border: none;
   cursor: pointer;
   font-size: 30px;
