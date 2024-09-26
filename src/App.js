@@ -10,7 +10,7 @@ import "react-resizable/css/styles.css";
 const App = () => {
   const [code, setCode] = useState("HTML");
   const [loading, setLoading] = useState(true);
-  const [editorWidth, setEditorWidth] = useState(1400);
+  const [editorWidth, setEditorWidth] = useState(1300);
   const editorValue = useSelector((state) => state.editor.value);
   const editorLanguage = useSelector((state) => state.editor.language);
 
