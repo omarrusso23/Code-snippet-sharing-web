@@ -34,12 +34,12 @@
   list-style-type: none;
   padding: 0px;
   width: 100%;
-  height:80%;
-  margin: 0;
+  height:fit-content;
+  margin-top: 10px;
 }
 
 .language-icon{
-  height: 70px;
+  height: 100px;
   padding-left: 14.5px;
   padding-top: 15px;
   padding-bottom: 15px;
