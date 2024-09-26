@@ -35,8 +35,9 @@ const App = () => {
             minConstraints={[800, Infinity]}
             maxConstraints={[1500, Infinity]}
             axis="x"
-            handle={<div className="custom-handle-right" />}
-            onResize={(e, data) => setEditorWidth(data.size.width)} // Correctly updating the width
+            handle={<span className="custom-handle" />}
+            onResize={(e, data) => setEditorWidth(data.size.width)}
+            draggableOpts={{ enableUserSelectHack: false }} // Ensure proper dragging behavior
           >
             <div className="main-editor-container">
               <MonacoEditorComponent
