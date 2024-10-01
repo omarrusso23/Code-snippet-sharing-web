@@ -12,7 +12,7 @@ const CodeCompilerComponent = ({ editorValue, editorLanguage }) => {
 
   const handleCompileClick = (e) => {
     e.stopPropagation();
-
+  
     if (["html", "javascript"].includes(editorLanguage)) {
       // Create an HTML document with the provided code
       const doc = `
@@ -25,8 +25,10 @@ const CodeCompilerComponent = ({ editorValue, editorLanguage }) => {
           <style>
             body {
               margin: 0;
-              padding: 0;
+              padding: 10px;
               font-family: Arial, sans-serif;
+              word-wrap: break-word; /* Forces long words to wrap */
+              white-space: pre-wrap; /* Preserves spacing and line breaks */
             }
             #consoleOutput {
               background: #f4f4f4;
@@ -47,15 +49,15 @@ const CodeCompilerComponent = ({ editorValue, editorLanguage }) => {
               // Capture console.log output
               const originalConsoleLog = console.log;
               let logOutput = "";
-
+  
               console.log = function(message) {
                 logOutput += message + "<br>";
                 originalConsoleLog(message); // Optional: also log to the original console
               };
-
+  
               // Execute the user code
               ${editorValue}
-
+  
               // Display console output
               document.body.innerHTML += "<div id='consoleOutput'>" + logOutput + "</div>";
             </script>
