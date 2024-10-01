@@ -26,9 +26,6 @@ const MonacoEditorComponent = () => {
   const [shareLink, setShareLink] = useState("");
   const editorRef = useRef(null);
   const [isCodeModified, setIsCodeModified] = useState(false);
-
-  const [languageTooltip, setLanguageTooltip] = useState("");
-  const [showLanguageTooltip, setShowLanguageTooltip] = useState(false);
   const [shareTooltip, setShareTooltip] = useState("");
   const [showShareTooltip, setShowShareTooltip] = useState(false);
 
@@ -43,16 +40,6 @@ const MonacoEditorComponent = () => {
     { name: "cpp", icon: cppIcon },
     { name: "ruby", icon: rubyIcon },
   ];
-
-  const languageDisplayNames = {
-    javascript: "JavaScript",
-    html: "HTML",
-    python3: "Python",
-    java: "Java",
-    csharp: "C#",
-    cpp: "C++",
-    ruby: "Ruby",
-  };
 
   const toggleSidebar = () => {
     setIsSidebarVisible(!isSidebarVisible);
@@ -117,9 +104,6 @@ const MonacoEditorComponent = () => {
     setTimeout(() => {
       setShowShareTooltip(false);
     }, 2000);
-
-    // Reset language tooltip on share click
-    setShowLanguageTooltip(false);
 
     try {
       const response = await fetch(
@@ -202,55 +186,50 @@ const MonacoEditorComponent = () => {
             : "dark-mode-sidebar"
         }`}
       >
-        <ul className="language-list">
-          {languages.map((lang) => (
-            <li
-              key={lang.name}
-              className={editorLanguage === lang.name ? "active" : ""}
-              onClick={() => handleLanguageSelect(lang)}
-              onMouseEnter={() => {
-                setLanguageTooltip(languageDisplayNames[lang.name]);
-                setShowLanguageTooltip(true);
-              }}
-              onMouseLeave={() => setShowLanguageTooltip(false)}
+        <div className="sidebar-container">
+          <ul className="language-list">
+            {languages.map((lang) => (
+              <li
+                key={lang.name}
+                className={editorLanguage === lang.name ? "active" : ""}
+                onClick={() => handleLanguageSelect(lang)}
+              >
+                <img
+                  className="language-icon"
+                  src={lang.icon}
+                  alt={lang.name}
+                />
+              </li>
+            ))}
+          </ul>
+          <div className="button-container">
+            <button className="theme-toggle-button" onClick={handleThemeToggle}>
+              {editorTheme === "vs-light" ? (
+                <FontAwesomeIcon icon={faMoon} />
+              ) : (
+                <FontAwesomeIcon icon={faSun} />
+              )}
+            </button>
+
+            <button
+              className={`share-button ${!isCodeModified ? "disabled" : ""}`}
+              onClick={handleShareClick}
+              disabled={!isCodeModified}
             >
-              <img className="language-icon" src={lang.icon} alt={lang.name} />
-              {showLanguageTooltip &&
-                languageTooltip === languageDisplayNames[lang.name] && (
-                  <div className="tooltip" style={{ left: "40px" }}>
-                    {languageTooltip}
-                  </div>
-                )}
-            </li>
-          ))}
-        </ul>
-        <div className="button-container">
-          <button className="theme-toggle-button" onClick={handleThemeToggle}>
-            {editorTheme === "vs-light" ? (
-              <FontAwesomeIcon icon={faMoon} />
-            ) : (
-              <FontAwesomeIcon icon={faSun} />
-            )}
-          </button>
-
-          <button
-            className={`share-button ${!isCodeModified ? "disabled" : ""}`}
-            onClick={handleShareClick}
-            disabled={!isCodeModified}
-          >
-            <FontAwesomeIcon
-              icon={faShareNodes}
-              style={{ marginRight: "5px" }}
-            />
-            SHARE
-          </button>
-        </div>
-
-        {showShareTooltip && (
-          <div className="share-tooltip" style={{ left: "40px" }}>
-            {shareTooltip}
+              <FontAwesomeIcon
+                icon={faShareNodes}
+                style={{ marginRight: "5px" }}
+              />
+              SHARE
+            </button>
           </div>
-        )}
+
+          {showShareTooltip && (
+            <div className="share-tooltip" style={{ left: "40px" }}>
+              {shareTooltip}
+            </div>
+          )}
+        </div>
       </div>
       <div className="editor-main">
         <Editor

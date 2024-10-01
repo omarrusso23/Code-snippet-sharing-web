@@ -1,16 +1,20 @@
-body{
-    background: #181818 ;
-}
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-.App{
-    height: 100vh;
-    overflow: hidden;
+html, body {
+  height: 100%;
+  margin: 0;
+  background: #181818;
+}
+
+.App {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .main-editor-container {
@@ -45,6 +49,9 @@ body{
 }
 
 .toggle-compiler {
+  position: fixed; /* Position fixed to the viewport */
+  bottom: 20px; /* Distance from the bottom */
+  right: 20px; /* Distance from the right */
   margin: 10px;
   padding: 10px;
   background-color: #B61D1D;
@@ -52,6 +59,7 @@ body{
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  z-index: 100; /* Ensure it stays above other content */
 }
 
 .toggle-compiler:hover {
@@ -59,7 +67,7 @@ body{
 }
 
 /* Mobile */
-@media (max-width: 768px) { 
+@media (max-width: 768px) {
   .resizable-container {
       flex-direction: column;
   }
@@ -73,25 +81,30 @@ body{
   }
 
   .other-content {
-      display: none;
+      display: none; /* Default to hide on mobile */
   }
 
   .toggle-compiler {
-      display: block;
+      display: block; /* Show toggle button */
   }
 }
 
 /* Tablet */
-@media (min-width: 768px) and (max-width: 1024px) { 
+@media (min-width: 768px) and (max-width: 1370px) {
   .resizable-container {
       flex-direction: row;
+      height: 88vh;
   }
 
   .editor-resizable {
       width: 70%;
   }
 
-  .main-editor-container, .other-content {
+  .other-content {
+    height: 88vh;
+  }
+
+  .main-editor-container {
       height: auto;
   }
 
@@ -100,13 +113,13 @@ body{
   }
 }
 
- /* Desktop */
+/* Desktop */
 @media (min-width: 1024px) {
   .editor-resizable {
       width: 60%;
   }
 
   .toggle-compiler {
-      display: none;
+      display: none; /* Hide toggle on desktop */
   }
 }

@@ -27,6 +27,7 @@ const App = () => {
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 1024);
+      setEditorWidth(window.innerWidth < 1370 ? 800 : 1200);
     };
 
     window.addEventListener("resize", handleResize);
@@ -45,7 +46,7 @@ const App = () => {
           axis="x"
           handle={<span className="custom-handle" />}
           onResize={(e, data) => setEditorWidth(data.size.width)}
-          draggableOpts={{ enableUserSelectHack: false }} 
+          draggableOpts={{ enableUserSelectHack: false }}
         >
           <div className="main-editor-container">
             <MonacoEditorComponent
@@ -65,7 +66,7 @@ const App = () => {
             />
           </div>
         )}
-        
+
         {isMobile && (
           <button className="toggle-compiler" onClick={toggleCompiler}>
             {isCompilerVisible ? "Hide Compiler" : "Show Compiler"}

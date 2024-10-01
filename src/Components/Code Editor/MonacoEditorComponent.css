@@ -24,18 +24,25 @@
 
 .sidebar {
   height: 100%;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
 }
 
+.sidebar-container{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 
 /*Language List*/
 .language-list {
   display: flex;
   flex-direction: column;
   list-style-type: none;
-  padding: 0px;
-  width: 100%;
-  height:fit-content;
-  margin-top: 0px;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
+  overflow-y: auto;
 }
 
 .language-icon{
@@ -102,7 +109,7 @@
   width: 100%;
   padding: 10px;
   height: 60px;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s ease;
 }
 
 .share-button:hover {
@@ -118,20 +125,6 @@
   transition: background-color 0.2s;;
 }
 
-.tooltip {
-  position: absolute;
-  margin-left: 50px; 
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
-  white-space: nowrap;
-  z-index: 10;
-  transition: opacity 0.2s ease;
-}
-
 .share-tooltip{
   position: absolute;
   margin-left: 65px; 
@@ -144,4 +137,45 @@
   white-space: nowrap;
   z-index: 10;
   transition: opacity 0.2s ease;
+}
+
+@media (max-width: 1370px) {
+  .sidebar {
+    height: 100%;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+  }
+
+  .sidebar-container{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .language-list {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+  
+  .language-icon{
+    height: 70px;
+    padding-left: 30px;
+  }
+  
+  .language-list li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin: 8px 0;
+  }
+  
+  .language-list li:hover {
+    background-color: #555;
+  }
 }
