@@ -23,6 +23,7 @@ body{
 .resizable-container {
   display: flex;
   height: 100vh;
+  flex-direction: row;
 }
 
 .editor-resizable {
@@ -40,14 +41,72 @@ body{
 .other-content {
   flex: 1;
   padding: 20px;
+  flex-direction: column;
 }
 
-.custom-handle {
-  width: 10px;
-  height: 100%;
-  cursor: ew-resize;
-  background-color: rgba(0, 0, 0, 0.2);
-  position: absolute;
-  right: 0;
-  top: 0;
+.toggle-compiler {
+  margin: 10px;
+  padding: 10px;
+  background-color: #B61D1D;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.toggle-compiler:hover {
+  background-color: #8b1717;
+}
+
+/* Mobile */
+@media (max-width: 768px) { 
+  .resizable-container {
+      flex-direction: column;
+  }
+
+  .editor-resizable {
+      width: 100%;
+  }
+
+  .main-editor-container, .other-content {
+      height: 300px;
+  }
+
+  .other-content {
+      display: none;
+  }
+
+  .toggle-compiler {
+      display: block;
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1024px) { 
+  .resizable-container {
+      flex-direction: row;
+  }
+
+  .editor-resizable {
+      width: 70%;
+  }
+
+  .main-editor-container, .other-content {
+      height: auto;
+  }
+
+  .toggle-compiler {
+      display: block;
+  }
+}
+
+ /* Desktop */
+@media (min-width: 1024px) {
+  .editor-resizable {
+      width: 60%;
+  }
+
+  .toggle-compiler {
+      display: none;
+  }
 }
